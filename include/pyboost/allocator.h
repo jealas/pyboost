@@ -33,25 +33,21 @@ namespace pyboost {
             return &value;
         }
 
-        allocator() noexcept {
-        }
+        allocator() noexcept = default;
 
-        allocator(const allocator&) noexcept {
-        }
+        allocator(const allocator&) noexcept = default;
 
         template <class U>
-        allocator (const allocator<U>&) noexcept {
-        }
+        allocator (const allocator<U>&) noexcept { };
 
-        ~allocator() noexcept {
-        }
+        ~allocator() noexcept = default;
 
         size_type max_size() const noexcept {
             return std::numeric_limits<std::size_t>::max() / sizeof(T);
         }
 
-        pointer allocate (size_type num, const void* = 0) {
-            if (pointer ret = reinterpret_cast<pointer>(PyMem_Malloc(num * sizeof(T)))) {
+        pointer allocate (size_type num, const void* = nullptr) {
+            if (auto ret = reinterpret_cast<pointer>(PyMem_Malloc(num * sizeof(T)))) {
                 return ret;
             }
 
