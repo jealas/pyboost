@@ -69,6 +69,7 @@ void register_dynamic_bitset(char const * const name) {
             .def("reset", +[](dynamic_bitset& bitset, size_type n){ bitset.reset(n); })
             .def("flip", +[](dynamic_bitset& bitset, size_type n){ bitset.flip(n); })
             .def("size", &dynamic_bitset::size)
+            .def("__len__", &dynamic_bitset::size)
             .def("num_blocks", &dynamic_bitset::num_blocks)
             .def("max_size", &dynamic_bitset::max_size)
             .def("empty", &dynamic_bitset::empty)
