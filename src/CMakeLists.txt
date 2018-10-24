@@ -1,2 +1,3 @@
 add_subdirectory(circular_buffer)
 add_subdirectory(crc)
+add_subdirectory(dynamic_bitset)

@@ -68,6 +68,6 @@ setup(
     ext_modules=[CMakeExtension('_pyboost'), CMakeExtension('_pyboost_circular_buffer')],
     cmdclass=dict(build_ext=CMakeBuild),
     package_dir={'': 'pysrc'},
-    packages=['pyboost', 'pyboost.circular_buffer'],
+    packages=['pyboost', 'pyboost.circular_buffer', 'pyboost.dynamic_bitset'],
     zip_safe=False,
 )

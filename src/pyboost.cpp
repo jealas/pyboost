@@ -1,6 +1,7 @@
 #include <boost/python.hpp>
 
 #include "pyboost/exception_translators.h"
+#include "pyboost/string.h"
 
 namespace
 {
@@ -69,4 +70,6 @@ BOOST_PYTHON_MODULE(_pyboost)
     register_translator<pyboost::unicode_translate_error>();
     register_translator<pyboost::value_error>();
     register_translator<pyboost::zero_division_error>();
+
+    to_python_converter<pyboost::string, pyboost::string_to_str>();
 }
