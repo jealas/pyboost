@@ -63,11 +63,11 @@ setup(
     version='0.0.1',
     author='Jesse Alas',
     author_email='jessealas94@gmail.com',
-    description='Python bindings for the OTC library.',
+    description='Python bindings for Boost C++ libraries.',
     long_description='',
     ext_modules=[CMakeExtension('_pyboost'), CMakeExtension('_pyboost_circular_buffer')],
     cmdclass=dict(build_ext=CMakeBuild),
     package_dir={'': 'pysrc'},
-    packages=['pyboost', 'pyboost.circular_buffer', 'pyboost.dynamic_bitset'],
+    packages=['pyboost', 'pyboost.circular_buffer', 'pyboost.dynamic_bitset', 'pyboost.multiprecision'],
     zip_safe=False,
 )
