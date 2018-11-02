@@ -45,13 +45,12 @@ namespace {
                         throw pyboost::index_error{"Unable to retrieve back because the circular buffer is empty."};
                     }
 
-                    return buffer.front();
+                    return buffer.back();
                 })
                 .def("full", &circular_buffer::full)
                 .def("empty", &circular_buffer::empty)
                 .def("size", &circular_buffer::size)
                 .def("capacity", &circular_buffer::capacity)
-                .def("max_size", &circular_buffer::max_size)
                 .def("at", +[](const circular_buffer &buffer, const typename circular_buffer::size_type index) -> T {
                     try {
                         return buffer.at(index);
