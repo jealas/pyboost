@@ -26,27 +26,30 @@ def test_push_back_increases_size_by_one():
 
 
 @pytest.mark.circular_buffer
-@pytest.mark.parametrize("elements", [(1, 2, 3)])
-def test_push_back_element_past_capacity_overwrites_the_front_element(elements):
+def test_push_back_element_past_capacity_overwrites_the_front_element():
     circular_buffer = CircularBuffer(3)
-    for element in elements:
-        circular_buffer.push_back(element)
 
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_back(i)
+        assert circular_buffer[i] == i
+
+    assert circular_buffer.front() == 0
+    circular_buffer.push_back(3)
     assert circular_buffer.front() == 1
-    circular_buffer.push_back(4)
-    assert circular_buffer.front() == 2
 
 
 @pytest.mark.circular_buffer
-@pytest.mark.parametrize("elements", [(1, 2, 3)])
-def test_push_front_element_past_capacity_overwrites_the_back_element(elements):
+def test_push_front_element_past_capacity_overwrites_the_back_element():
     circular_buffer = CircularBuffer(3)
-    for element in elements:
-        circular_buffer.push_back(element)
 
-    assert circular_buffer.back() == 3
-    circular_buffer.push_front(4)
-    assert circular_buffer.back() == 2
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_front(i)
+        assert circular_buffer.front() == i
+
+    assert circular_buffer.back() == 0
+    circular_buffer.push_front(3)
+    assert circular_buffer.front() == 3
+    assert circular_buffer.back() == 1
 
 
 @pytest.mark.circular_buffer
@@ -62,24 +65,23 @@ def test_push_front_increases_size_by_one():
 
 
 @pytest.mark.circular_buffer
-@pytest.mark.parametrize("elements", [(1, 2, 3, 4)])
-def test_push_front_adds_element_to_the_front(elements):
+def test_push_front_adds_element_to_the_front():
     circular_buffer = CircularBuffer(10)
 
-    for element in elements:
-        circular_buffer.push_front(element)
-        assert circular_buffer.front() == element
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_front(i)
+        assert circular_buffer.front() == i
 
 
 @pytest.mark.circular_buffer
 def test_pop_back_removes_the_element_at_the_back():
-    circular_buffer1 = CircularBuffer(10)
-    circular_buffer1.push_back(1)
-    circular_buffer1.push_back(2)
+    circular_buffer = CircularBuffer(10)
+    circular_buffer.push_back(1)
+    circular_buffer.push_back(2)
 
-    assert circular_buffer1.back() == 2
-    circular_buffer1.pop_back()
-    assert circular_buffer1.back() == 1
+    assert circular_buffer.back() == 2
+    circular_buffer.pop_back()
+    assert circular_buffer.back() == 1
 
 
 @pytest.mark.circular_buffer
@@ -91,13 +93,13 @@ def test_pop_back_empty_buffer_raises_index_error():
 
 @pytest.mark.circular_buffer
 def test_pop_front_removes_first_element():
-    circular_buffer1 = CircularBuffer(10)
-    circular_buffer1.push_front(1)
-    circular_buffer1.push_front(2)
+    circular_buffer = CircularBuffer(10)
+    circular_buffer.push_front(1)
+    circular_buffer.push_front(2)
 
-    assert circular_buffer1.front() == 2
-    circular_buffer1.pop_front()
-    assert circular_buffer1.front() == 1
+    assert circular_buffer.front() == 2
+    circular_buffer.pop_front()
+    assert circular_buffer.front() == 1
 
 
 @pytest.mark.circular_buffer
@@ -108,14 +110,12 @@ def test_pop_front_empty_buffer_raises_index_error():
 
 
 @pytest.mark.circular_buffer
-@pytest.mark.parametrize("elements", [(1, 2, 3)])
-def test_front_return_first_element(elements):
+def test_front_return_first_element():
     circular_buffer = CircularBuffer(10)
 
-    for element in elements:
-        circular_buffer.push_back(element)
-
-    assert circular_buffer.front() == 1
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_front(i)
+        assert circular_buffer.front() == i
 
 
 @pytest.mark.circular_buffer
@@ -127,14 +127,12 @@ def test_front_on_empty_buffer_raises_index_error():
 
 
 @pytest.mark.circular_buffer
-@pytest.mark.parametrize("elements", [(1, 2, 3)])
-def test_back_return_last_element(elements):
+def test_back_return_last_element():
     circular_buffer = CircularBuffer(10)
 
-    for element in elements:
-        circular_buffer.push_back(element)
-
-    assert circular_buffer.back() == 3
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_back(i)
+        assert circular_buffer.back() == i
 
 
 @pytest.mark.circular_buffer
@@ -206,3 +204,13 @@ def test_capacity_returns_capacity_specified_in_constructor(capacity):
     circular_buffer = CircularBuffer(capacity)
 
     assert circular_buffer.capacity() == capacity
+
+
+@pytest.mark.circular_buffer
+def test_iterate_returns_each_element():
+    circular_buffer = CircularBuffer(10)
+    index = 0
+
+    for buffer in circular_buffer:
+        assert buffer == circular_buffer.at(index)
+        index += 1
