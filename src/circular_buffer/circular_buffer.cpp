@@ -74,9 +74,9 @@ namespace {
                         throw pyboost::index_error{oor.what()};
                     }
                 })
-                .def("__setitem__", +[](circular_buffer &buffer, const typename circular_buffer::size_type index, T obj) -> T {
+                .def("__setitem__", +[](circular_buffer &buffer, const typename circular_buffer::size_type index, T obj) {
                     try {
-                        return buffer.at(index) = obj;
+                        buffer.at(index) = obj;
                     }
                     catch (const std::out_of_range &oor) {
                         throw pyboost::index_error{oor.what()};
