@@ -207,6 +207,36 @@ def test_capacity_returns_capacity_specified_in_constructor(capacity):
 
 
 @pytest.mark.circular_buffer
+def test_len_returns_size():
+    circular_buffer = CircularBuffer(10)
+
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_back(i)
+        assert len(circular_buffer) == circular_buffer.size()
+
+
+@pytest.mark.circular_buffer
+def test_get_item_returns_item_asked_for():
+    circular_buffer = CircularBuffer(10)
+
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_back(i)
+        assert circular_buffer[i] == i
+
+
+@pytest.mark.circular_buffer
+def test_set_item_assign_value_to_item():
+    circular_buffer = CircularBuffer(10)
+
+    for i in range(circular_buffer.capacity()):
+        circular_buffer.push_back(i)
+
+    for j in range(circular_buffer.capacity()):
+        circular_buffer[j] = j+1
+        assert circular_buffer[j] == j+1
+
+
+@pytest.mark.circular_buffer
 def test_iterate_returns_each_element():
     circular_buffer = CircularBuffer(10)
     index = 0
