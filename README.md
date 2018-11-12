@@ -34,11 +34,11 @@ $ sudo apt install cmake python3-dev libboost-all-dev
 $ sudo pacman -S cmake python3 boost
 ```
 
-## Install PyBoost
+## Install PyBoost for Development
 ```sh
 $ git clone --recursive git@github.com:jealas/pyboost.git
 $ cd pyboost
-$ sudo pip3 install -r requirements.txt
+$ pipenv install
 ```
 
 # License
